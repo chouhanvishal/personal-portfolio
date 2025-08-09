@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Edit, Trash2, Save, X } from "lucide-react";
+import { ButtonLoadingAnimation, AdminLoadingAnimation } from "@/components/ui/loading";
 
 interface SkillsTabProps {
   data: any;
@@ -202,8 +203,14 @@ const SkillsTab = ({ data, onDataUpdate }: SkillsTabProps) => {
             </div>
             <div className="flex gap-2">
               <Button onClick={handleSubmit} disabled={loading}>
-                <Save className="w-4 h-4 mr-2" />
-                {loading ? 'Saving...' : 'Save'}
+                {loading ? (
+                  <ButtonLoadingAnimation message="Saving..." />
+                ) : (
+                  <>
+                    <Save className="w-4 h-4 mr-2" />
+                    Save
+                  </>
+                )}
               </Button>
               <Button variant="outline" onClick={handleCancel}>
                 <X className="w-4 h-4 mr-2" />
@@ -216,10 +223,8 @@ const SkillsTab = ({ data, onDataUpdate }: SkillsTabProps) => {
 
       {fetching ? (
         <div className="flex items-center justify-center h-32">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto mb-2"></div>
-            <p className="text-gray-600">Loading skills...</p>
-          </div>
+          <AdminLoadingAnimation />
+          <p className="text-gray-600 ml-4">Loading skills...</p>
         </div>
       ) : (
         <div className="grid gap-4">

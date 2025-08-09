@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus, Edit, Trash2, Save, X } from "lucide-react";
+import { ButtonLoadingAnimation } from "@/components/ui/loading";
 
 interface ExperienceTabProps {
   data: any;
@@ -150,8 +151,14 @@ const ExperienceTab = ({ data, onDataUpdate }: ExperienceTabProps) => {
             </div>
             <div className="flex gap-2">
               <Button onClick={handleSubmit} disabled={loading}>
-                <Save className="w-4 h-4 mr-2" />
-                {loading ? 'Saving...' : 'Save'}
+                {loading ? (
+                  <ButtonLoadingAnimation message="Saving..." />
+                ) : (
+                  <>
+                    <Save className="w-4 h-4 mr-2" />
+                    Save
+                  </>
+                )}
               </Button>
               <Button variant="outline" onClick={handleCancel}>
                 <X className="w-4 h-4 mr-2" />

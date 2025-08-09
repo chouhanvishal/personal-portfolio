@@ -129,8 +129,8 @@ const Contact = () => {
         </Parallax>
       </div>
       
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="max-w-7xl mx-auto w-full overflow-hidden" style={{ opacity: 1, visibility: 'visible' }}>
+      <div className="container mx-auto px-6 sm:px-8 lg:px-10 relative z-10">
+        <div className="max-w-7xl mx-auto w-full" style={{ opacity: 1, visibility: 'visible' }}>
           <motion.h2 
             className="text-4xl md:text-5xl font-bold text-center mb-16 text-white drop-shadow-lg bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent"
             variants={itemVariants}
@@ -151,184 +151,324 @@ const Contact = () => {
 
           {/* Why Work With Me */}
           <motion.div
-            className="grid md:grid-cols-3 gap-8 mb-16"
+            className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-16"
             variants={itemVariants}
           >
-            <Parallax speed={0.3} direction="up">
-              <Card className="p-6 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 text-center border border-white/20">
+            <Card className="p-6 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 text-center border border-white/20 h-full flex flex-col">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3 text-white">Fast Delivery</h3>
-              <p className="text-white/80">Quick turnaround times without compromising on quality or performance.</p>
-              </Card>
-            </Parallax>
+              <p className="text-white/80 flex-grow">Quick turnaround times without compromising on quality or performance.</p>
+            </Card>
 
-            <Parallax speed={0.4} direction="up" offset={50}>
-              <Card className="p-6 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 text-center border border-white/20">
+            <Card className="p-6 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 text-center border border-white/20 h-full flex flex-col">
               <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Target className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3 text-white">Scalable Solutions</h3>
-              <p className="text-white/80">Architecture designed to grow with your business needs and user base.</p>
-              </Card>
-            </Parallax>
+              <p className="text-white/80 flex-grow">Architecture designed to grow with your business needs and user base.</p>
+            </Card>
 
-            <Parallax speed={0.5} direction="up" offset={100}>
-              <Card className="p-6 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 text-center border border-white/20">
+            <Card className="p-6 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 text-center border border-white/20 h-full flex flex-col">
               <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3 text-white">Ongoing Support</h3>
-              <p className="text-white/80">Continuous maintenance, updates, and support to keep your project thriving.</p>
-              </Card>
-            </Parallax>
+              <p className="text-white/80 flex-grow">Continuous maintenance, updates, and support to keep your project thriving.</p>
+            </Card>
           </motion.div>
           
-                    <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-stretch w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch w-full">
             {/* Contact Info */}
-            <Parallax speed={0.3} direction="left">
-              <motion.div variants={itemVariants}>
-                <Card className="p-6 sm:p-8 lg:p-10 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col overflow-hidden border border-white/20">
-                <h3 className="text-2xl lg:text-3xl font-bold mb-6 text-white">Get In Touch</h3>
-                <p className="text-white/80 mb-8 leading-relaxed text-lg">
-                  I'm always excited to discuss new opportunities, innovative projects, and potential collaborations. 
-                  Whether you have a specific project in mind or just want to explore possibilities, let's start a conversation!
-                </p>
-                
-                <div className="space-y-6 flex-grow">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Mail className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-semibold text-white text-lg">Email</p>
-                      <a href="mailto:chouhanvishal273@gmail.com" className="text-blue-400 hover:text-blue-300 transition-colors break-words">
-                        chouhanvishal273@gmail.com
-                      </a>
-                    </div>
-                  </div>
+            <div className="lg:hidden">
+              <motion.div variants={itemVariants} className="h-full">
+                <Card className="p-4 sm:p-6 lg:p-8 xl:p-10 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col border border-white/20 min-h-[600px]">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-white">Get In Touch</h3>
+                  <p className="text-white/80 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg">
+                    I'm always excited to discuss new opportunities, innovative projects, and potential collaborations. 
+                    Whether you have a specific project in mind or just want to explore possibilities, let's start a conversation!
+                  </p>
                   
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Phone className="h-6 w-6 text-white" />
+                  <div className="space-y-4 sm:space-y-6 flex-grow">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-white text-base sm:text-lg">Email</p>
+                        <a href="mailto:chouhanvishal273@gmail.com" className="text-blue-400 hover:text-blue-300 transition-colors break-all text-sm sm:text-base">
+                          chouhanvishal273@gmail.com
+                        </a>
+                      </div>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-semibold text-white text-lg">Phone</p>
-                      <a href="tel:+917693813997" className="text-green-400 hover:text-green-300 transition-colors break-words">
-                        +91 76938 13997
-                      </a>
+                    
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-white text-base sm:text-lg">Phone</p>
+                        <a href="tel:+917693813997" className="text-green-400 hover:text-green-300 transition-colors break-all text-sm sm:text-base">
+                          +91 76938 13997
+                        </a>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-white text-base sm:text-lg">Location</p>
+                        <p className="text-white/70 break-all text-sm sm:text-base">Vijaynagar, Indore (M.P.), 452010</p>
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <MapPin className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-semibold text-white text-lg">Location</p>
-                      <p className="text-white/70 break-words">Vijaynagar, Indore (M.P.), 452010</p>
-                    </div>
-                  </div>
-                </div>
                 </Card>
               </motion.div>
-            </Parallax>
+            </div>
+            
+            <div className="hidden lg:block">
+              <Parallax speed={0.3} direction="left">
+                <motion.div variants={itemVariants} className="h-full">
+                  <Card className="p-4 sm:p-6 lg:p-8 xl:p-10 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col border border-white/20 min-h-[600px]">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-white">Get In Touch</h3>
+                    <p className="text-white/80 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg">
+                      I'm always excited to discuss new opportunities, innovative projects, and potential collaborations.
+                      Whether you have a specific project in mind or just want to explore possibilities, let's start a conversation!
+                    </p>
+                    
+                    <div className="space-y-4 sm:space-y-6 flex-grow">
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold text-white text-base sm:text-lg">Email</p>
+                          <a href="mailto:chouhanvishal273@gmail.com" className="text-blue-400 hover:text-blue-300 transition-colors break-all text-sm sm:text-base">
+                            chouhanvishal273@gmail.com
+                          </a>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold text-white text-base sm:text-lg">Phone</p>
+                          <a href="tel:+917693813997" className="text-green-400 hover:text-green-300 transition-colors break-all text-sm sm:text-base">
+                            +91 76938 13997
+                          </a>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold text-white text-base sm:text-lg">Location</p>
+                          <p className="text-white/70 break-all text-sm sm:text-base">Vijaynagar, Indore (M.P.), 452010</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              </Parallax>
+            </div>
             
             {/* Contact Form */}
-            <Parallax speed={0.3} direction="right">
-              <motion.div variants={itemVariants}>
-                <Card className="p-6 sm:p-8 lg:p-10 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col overflow-hidden border border-white/20">
-                <h3 className="text-2xl lg:text-3xl font-bold mb-6 text-white">Send Message</h3>
-                
-                {submitStatus === 'success' && (
-                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
-                    <p className="text-green-800">Message sent successfully! I'll get back to you soon.</p>
-                  </div>
-                )}
-
-                {submitStatus === 'error' && (
-                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-600" />
-                    <p className="text-red-800">Failed to send message. Please try again or contact me directly.</p>
-                  </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-6 flex-grow flex flex-col">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <Input 
-                        name="firstName"
-                        placeholder="First Name" 
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        required
-                        className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400"
-                      />
+            <div className="lg:hidden">
+              <motion.div variants={itemVariants} className="h-full">
+                <Card className="p-4 sm:p-6 lg:p-8 xl:p-10 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col border border-white/20 min-h-[600px]">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-white">Send Message</h3>
+                  
+                  {submitStatus === 'success' && (
+                    <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+                      <p className="text-green-800 text-sm sm:text-base">Message sent successfully! I'll get back to you soon.</p>
                     </div>
-                    <div>
-                      <Input 
-                        name="lastName"
-                        placeholder="Last Name" 
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        required
-                        className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400"
-                      />
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
+                      <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" />
+                      <p className="text-red-800 text-sm sm:text-base">Failed to send message. Please try again or contact me directly.</p>
                     </div>
-                  </div>
-                  
-                  <Input 
-                    name="email"
-                    placeholder="Email Address" 
-                    type="email" 
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400"
-                  />
-                  
-                  <Input 
-                    name="subject"
-                    placeholder="Subject" 
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    required
-                    className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400"
-                  />
-                  
-                  <Textarea 
-                    name="message"
-                    placeholder="Tell me about your project, timeline, and any specific requirements..." 
-                    rows={6}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 resize-none flex-grow"
-                  />
-                  
-                  <Button 
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mt-auto"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-4 w-4" />
-                        Send Message
-                      </>
-                    )}
-                  </Button>
-                </form>
+                  )}
+
+                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 flex-grow flex flex-col">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                      <div>
+                        <Input 
+                          name="firstName"
+                          placeholder="First Name" 
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                          required
+                          className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 text-sm sm:text-base"
+                        />
+                      </div>
+                      <div>
+                        <Input 
+                          name="lastName"
+                          placeholder="Last Name" 
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                          required
+                          className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 text-sm sm:text-base"
+                        />
+                      </div>
+                    </div>
+                    
+                    <Input 
+                      name="email"
+                      placeholder="Email Address" 
+                      type="email" 
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 text-sm sm:text-base"
+                    />
+                    
+                    <Input 
+                      name="subject"
+                      placeholder="Subject" 
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      required
+                      className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 text-sm sm:text-base"
+                    />
+                    
+                    <Textarea 
+                      name="message"
+                      placeholder="Tell me about your project, timeline, and any specific requirements..." 
+                      rows={4}
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 resize-none flex-grow text-sm sm:text-base"
+                    />
+                    
+                    <Button 
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mt-auto text-sm sm:text-base py-2 sm:py-3"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-4 w-4" />
+                          Send Message
+                        </>
+                      )}
+                    </Button>
+                  </form>
                 </Card>
               </motion.div>
-            </Parallax>
+            </div>
+            
+            <div className="hidden lg:block">
+              <Parallax speed={0.3} direction="right">
+                <motion.div variants={itemVariants} className="h-full">
+                  <Card className="p-4 sm:p-6 lg:p-8 xl:p-10 border-0 shadow-neon glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col border border-white/20 min-h-[600px]">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-white">Send Message</h3>
+                    
+                    {submitStatus === 'success' && (
+                      <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
+                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+                        <p className="text-green-800 text-sm sm:text-base">Message sent successfully! I'll get back to you soon.</p>
+                      </div>
+                    )}
+  
+                    {submitStatus === 'error' && (
+                      <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
+                        <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" />
+                        <p className="text-red-800 text-sm sm:text-base">Failed to send message. Please try again or contact me directly.</p>
+                      </div>
+                    )}
+  
+                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 flex-grow flex flex-col">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div>
+                          <Input
+                            name="firstName"
+                            placeholder="First Name"
+                            value={formData.firstName}
+                            onChange={handleInputChange}
+                            required
+                            className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 text-sm sm:text-base"
+                          />
+                        </div>
+                        <div>
+                          <Input
+                            name="lastName"
+                            placeholder="Last Name"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
+                            required
+                            className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 text-sm sm:text-base"
+                          />
+                        </div>
+                      </div>
+                      
+                      <Input
+                        name="email"
+                        placeholder="Email Address"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 text-sm sm:text-base"
+                      />
+                      
+                      <Input
+                        name="subject"
+                        placeholder="Subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        required
+                        className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 text-sm sm:text-base"
+                      />
+                      
+                      <Textarea
+                        name="message"
+                        placeholder="Tell me about your project, timeline, and any specific requirements..."
+                        rows={4}
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        required
+                        className="border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-blue-400 focus:ring-blue-400 resize-none flex-grow text-sm sm:text-base"
+                      />
+                      
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mt-auto text-sm sm:text-base py-2 sm:py-3"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="mr-2 h-4 w-4" />
+                            Send Message
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </Card>
+                </motion.div>
+              </Parallax>
+            </div>
           </div>
         </div>
       </div>

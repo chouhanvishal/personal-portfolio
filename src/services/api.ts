@@ -70,30 +70,72 @@ export interface ProfileData {
   work_experience: WorkExperience[];
 }
 
+// Event emitter for API loading state
+type ApiLoadingListener = (isLoading: boolean, endpoint: string) => void;
+
 class ApiService {
   private baseUrl: string;
   private userId: number;
+  private loadingListeners: ApiLoadingListener[] = [];
+  private activeRequests: Map<string, boolean> = new Map();
 
   constructor() {
     this.baseUrl = API_BASE_URL;
     this.userId = 1; // Default user ID - you can make this configurable
   }
 
+  // Subscribe to loading state changes
+  onLoadingChange(listener: ApiLoadingListener): () => void {
+    this.loadingListeners.push(listener);
+    return () => {
+      this.loadingListeners = this.loadingListeners.filter(l => l !== listener);
+    };
+  }
+
+  // Check if any request is currently loading
+  isLoading(): boolean {
+    return this.activeRequests.size > 0;
+  }
+
+  // Get all active endpoints
+  getActiveEndpoints(): string[] {
+    return Array.from(this.activeRequests.keys());
+  }
+
+  // Notify all listeners of loading state change
+  private notifyLoadingChange(isLoading: boolean, endpoint: string): void {
+    this.loadingListeners.forEach(listener => listener(isLoading, endpoint));
+  }
+
   private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
-    const response = await fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options?.headers,
-      },
-      ...options,
-    });
+    
+    // Set loading state to true
+    this.activeRequests.set(endpoint, true);
+    this.notifyLoadingChange(true, endpoint);
+    
+    try {
+      const response = await fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...options?.headers,
+        },
+        ...options,
+      });
 
-    if (!response.ok) {
-      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    } finally {
+      // Set loading state to false
+      this.activeRequests.delete(endpoint);
+      this.notifyLoadingChange(false, endpoint);
     }
-
-    return response.json();
   }
 
   async getProfile(): Promise<ProfileData> {

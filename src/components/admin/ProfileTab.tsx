@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Edit, Save, X, User, Mail, MapPin, Calendar, CheckCircle, AlertCircle, Upload, Camera } from "lucide-react";
+import { ButtonLoadingAnimation } from "@/components/ui/loading";
 
 interface ProfileTabProps {
   data: any;
@@ -275,14 +276,20 @@ const ProfileTab = ({ data, onDataUpdate }: ProfileTabProps) => {
                     className="flex-1"
                   />
                   {selectedFile && (
-                    <Button
-                      onClick={handlePhotoUpload}
-                      disabled={uploadingPhoto}
-                      className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-                    >
-                      <Upload className="w-4 h-4 mr-2" />
-                      {uploadingPhoto ? 'Uploading...' : 'Upload'}
-                    </Button>
+                                      <Button
+                    onClick={handlePhotoUpload}
+                    disabled={uploadingPhoto}
+                    className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                  >
+                    {uploadingPhoto ? (
+                      <ButtonLoadingAnimation message="Uploading..." />
+                    ) : (
+                      <>
+                        <Upload className="w-4 h-4 mr-2" />
+                        Upload
+                      </>
+                    )}
+                  </Button>
                   )}
                 </div>
                 {errors.photo && (
@@ -408,8 +415,14 @@ const ProfileTab = ({ data, onDataUpdate }: ProfileTabProps) => {
                   disabled={loading}
                   className="flex-1 sm:flex-none"
                 >
-                  <Save className="w-4 h-4 mr-2" />
-                  {loading ? 'Saving...' : 'Save Changes'}
+                  {loading ? (
+                    <ButtonLoadingAnimation message="Saving..." />
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4 mr-2" />
+                      Save Changes
+                    </>
+                  )}
                 </Button>
                 <Button 
                   variant="outline" 

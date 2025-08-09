@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,19 +17,51 @@ const Navbar = () => {
       }
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#home", isHash: true },
+    { name: "About", href: "#about", isHash: true },
+    { name: "Skills", href: "#skills", isHash: true },
+    { name: "Projects", href: "#projects", isHash: true },
+    { name: "Contact", href: "#contact", isHash: true },
   ];
+
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    scrollToSection(href);
+    setIsMenuOpen(false);
+  };
 
   const navbarVariants = {
     initial: { opacity: 0, y: -20 },
@@ -76,7 +109,6 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Vishal
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -86,6 +118,7 @@ const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 className="text-white/90 hover:text-white transition-colors relative group"
+                onClick={(e) => handleNavClick(e, link.href)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -103,16 +136,13 @@ const Navbar = () => {
           <div className="flex items-center space-x-4 md:hidden">
             <ThemeToggle />
             <motion.button
-              className="text-white focus:outline-none"
+              className="text-white hover:text-white/80 focus:outline-none focus:ring-2 focus:ring-white/20 rounded-lg p-2 transition-colors bg-white/10 backdrop-blur-sm"
               onClick={toggleMenu}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              aria-label="Open menu"
             >
-              {isMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
+              <Menu className="h-6 w-6 text-white" />
             </motion.button>
           </div>
         </div>
@@ -122,20 +152,34 @@ const Navbar = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="fixed inset-0 bg-gradient-1 z-40 md:hidden pt-20"
+            ref={menuRef}
+            className="fixed inset-0 bg-black/90 backdrop-blur-lg z-40 md:hidden pt-20"
             initial="closed"
             animate="open"
             exit="closed"
             variants={menuVariants}
           >
+            {/* Close button inside menu */}
+            <div className="absolute top-4 right-4">
+              <motion.button
+                className="text-white hover:text-white/80 focus:outline-none focus:ring-2 focus:ring-white/20 rounded-lg p-2 transition-colors bg-white/10 backdrop-blur-sm"
+                onClick={() => setIsMenuOpen(false)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Close menu"
+              >
+                <X className="h-6 w-6 text-white" />
+              </motion.button>
+            </div>
+            
             <div className="container mx-auto px-4 py-8">
               <div className="flex flex-col space-y-6">
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.name}
                     href={link.href}
-                    className="text-white text-2xl font-semibold hover:text-white/80 transition-colors"
-                    onClick={toggleMenu}
+                    className="text-white text-2xl font-semibold hover:text-white/80 transition-colors flex items-center gap-2"
+                    onClick={(e) => handleNavClick(e, link.href)}
                     custom={index}
                     variants={linkVariants}
                     whileHover={{ x: 10 }}

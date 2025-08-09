@@ -22,6 +22,7 @@ import {
   Search,
   Filter
 } from "lucide-react";
+import { ButtonLoadingAnimation, AdminLoadingAnimation } from "@/components/ui/loading";
 
 interface ProjectsTabProps {
   data: any;
@@ -573,8 +574,14 @@ const ProjectsTab = ({ data, onDataUpdate }: ProjectsTabProps) => {
                   disabled={loading}
                   className="flex-1 sm:flex-none"
                 >
-                  <Save className="w-4 h-4 mr-2" />
-                  {loading ? 'Saving...' : 'Save Project'}
+                  {loading ? (
+                    <ButtonLoadingAnimation message="Saving..." />
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4 mr-2" />
+                      Save Project
+                    </>
+                  )}
                 </Button>
                 <Button 
                   variant="outline" 

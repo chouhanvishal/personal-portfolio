@@ -23,6 +23,7 @@ import {
   CheckCircle,
   AlertCircle
 } from "lucide-react";
+import { ButtonLoadingAnimation } from "@/components/ui/loading";
 
 interface SocialLinksTabProps {
   data: any;
@@ -475,8 +476,14 @@ const SocialLinksTab = ({ data, onDataUpdate }: SocialLinksTabProps) => {
                   disabled={loading}
                   className="flex-1 sm:flex-none"
                 >
-                  <Save className="w-4 h-4 mr-2" />
-                  {loading ? 'Saving...' : 'Save Link'}
+                  {loading ? (
+                    <ButtonLoadingAnimation message="Saving..." />
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4 mr-2" />
+                      Save Link
+                    </>
+                  )}
                 </Button>
                 <Button 
                   variant="outline" 

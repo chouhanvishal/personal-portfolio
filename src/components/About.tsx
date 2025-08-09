@@ -130,11 +130,11 @@ const About = () => {
             About Me
           </motion.h2>
           
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-20">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-stretch mb-20">
             {/* Main Content with Journey */}
             <Parallax speed={0.4} direction="up">
-              <motion.div variants={itemVariants}>
-                <Card className="p-6 lg:p-8 xl:p-10 border-0 shadow-xl glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 border border-white/20">
+              <motion.div variants={itemVariants} className="h-full">
+                <Card className="p-6 lg:p-8 xl:p-10 border-0 shadow-xl glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2 border border-white/20 h-full flex flex-col">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center mr-4">
                     <Briefcase className="w-6 h-6 text-white" />
@@ -147,7 +147,7 @@ const About = () => {
                 </p>
                 
                 {currentPosition && (
-                  <div className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 p-6 rounded-xl border border-purple-400/30 mb-8">
+                  <div className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 p-6 rounded-xl border border-purple-400/30 mb-8 flex-grow">
                     <p className="text-white/90 leading-relaxed text-lg">
                       Currently working as <span className="font-semibold text-purple-300">{currentPosition.position}</span> at <span className="font-semibold text-blue-300">{currentPosition.company}</span>, 
                       I'm passionate about leveraging cutting-edge technologies like AWS, Docker, 
@@ -161,9 +161,9 @@ const About = () => {
             
             {/* Side Content */}
             <Parallax speed={0.3} direction="down">
-              <motion.div className="space-y-6" variants={itemVariants}>
+              <motion.div className="h-full flex flex-col justify-between" variants={itemVariants}>
                 {/* What I Do */}
-                <Card className="p-6 lg:p-8 border-0 shadow-xl glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-1 border border-white/20">
+                <Card className="p-6 lg:p-8 border-0 shadow-xl glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-1 border border-white/20 flex-1">
                 <div className="flex items-center mb-4">
                   <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3">
                     <Award className="w-5 h-5 text-white" />
@@ -191,7 +191,7 @@ const About = () => {
                 </Card>
                 
                 {/* My Values */}
-                <Card className="p-6 lg:p-8 border-0 shadow-xl glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-1 border border-white/20">
+                <Card className="p-6 lg:p-8 border-0 shadow-xl glass dark:glass-dark hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-1 border border-white/20 flex-1">
                 <div className="flex items-center mb-4">
                   <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-3">
                     <Award className="w-5 h-5 text-white" />

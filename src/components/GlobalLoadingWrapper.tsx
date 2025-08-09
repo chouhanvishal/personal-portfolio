@@ -1,6 +1,6 @@
 import { useProfile } from "@/hooks/use-profile";
 import { useApiLoading } from "@/hooks/use-api-loading";
-import { SuperCoolLoadingAnimation } from "@/components/ui/loading";
+import { ProfileLoadingAnimation } from "@/components/Loading";
 import { ReactNode, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -45,7 +45,7 @@ const GlobalLoadingWrapper = ({ children }: GlobalLoadingWrapperProps) => {
 
   // Initial profile loading - full screen
   if (isProfileLoading) {
-    return <SuperCoolLoadingAnimation message="Loading your profile..." isFullScreen={true} />;
+    return <ProfileLoadingAnimation />;
   }
 
   // Error state
@@ -75,10 +75,9 @@ const GlobalLoadingWrapper = ({ children }: GlobalLoadingWrapperProps) => {
             className="fixed inset-0 z-50 flex items-center justify-center"
           >
             <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
-            <SuperCoolLoadingAnimation
-              message={getLoadingMessage()}
-              isFullScreen={false}
-            />
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+              <ProfileLoadingAnimation />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

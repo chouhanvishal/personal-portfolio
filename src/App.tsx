@@ -9,6 +9,7 @@ import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
 import BackToTop from "@/components/BackToTop";
 import PageTransition from "@/components/PageTransition";
+import DynamicFavicon from "@/components/DynamicFavicon";
 import Index from "./pages/Index";
 import AdminPage from "./pages/AdminPage";
 import NotFound from "./pages/NotFound";
@@ -19,6 +20,7 @@ const App = () => (
   <ThemeProvider defaultTheme="system" storageKey="profile-theme">
     <ParallaxProvider>
       <QueryClientProvider client={queryClient}>
+        <DynamicFavicon />
         <TooltipProvider>
           <Toaster />
           <Sonner />

@@ -9,6 +9,7 @@ const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [isTouching, setIsTouching] = useState(false);
+  const [isCursorEnabled, setIsCursorEnabled] = useState(true);
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorOuterRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
@@ -17,10 +18,22 @@ const CustomCursor = () => {
   const isMobileImmediate = typeof window !== 'undefined' && window.innerWidth < 768;
   
   // Use immediate check if hook hasn't loaded yet
-  const shouldHideCursor = isMobile || isMobileImmediate;
+  const shouldHideCursor = isMobile || isMobileImmediate || !isCursorEnabled;
   
   // Debug logging
-  console.log('CustomCursor - isMobile:', isMobile, 'isMobileImmediate:', isMobileImmediate, 'shouldHideCursor:', shouldHideCursor);
+  console.log('CustomCursor - isMobile:', isMobile, 'isMobileImmediate:', isMobileImmediate, 'isCursorEnabled:', isCursorEnabled, 'shouldHideCursor:', shouldHideCursor);
+
+  // Keyboard shortcut to toggle cursor (C key)
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === 'c' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        setIsCursorEnabled(!isCursorEnabled);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
+  }, [isCursorEnabled]);
 
   useEffect(() => {
     if (shouldHideCursor) {
@@ -161,6 +174,17 @@ const CustomCursor = () => {
 
   return (
     <>
+      {/* Cursor Toggle Button */}
+      <motion.button
+        onClick={() => setIsCursorEnabled(!isCursorEnabled)}
+        className="fixed top-4 right-4 z-[10000] w-10 h-10 rounded-full bg-gradient-1 border-2 border-white/20 shadow-neon flex items-center justify-center text-white text-sm font-bold cursor-pointer hover:scale-110 transition-transform"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        title={isCursorEnabled ? "Disable Custom Cursor" : "Enable Custom Cursor"}
+      >
+        {isCursorEnabled ? "👁️" : "👁️‍🗨️"}
+      </motion.button>
+
       {/* Inner cursor (dot) */}
       <motion.div
         ref={cursorRef}

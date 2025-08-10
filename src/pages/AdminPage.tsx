@@ -32,31 +32,19 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+    <div className="min-h-screen bg-gray-50">
       <AnimatePresence mode="wait">
         {showLogin ? (
-          <motion.div
-            key="login"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.3 }}
-          >
+          <div>
             <AdminLogin onLogin={handleLogin} />
-          </motion.div>
+          </div>
         ) : (
-          <motion.div
-            key="admin"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
+          <div>
             <AdminPanel 
               isOpen={true} 
               onClose={handleLogout} 
             />
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>

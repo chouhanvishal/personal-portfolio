@@ -2,15 +2,32 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
+  const [isTouching, setIsTouching] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorOuterRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  
+  // Immediate mobile check for SSR safety
+  const isMobileImmediate = typeof window !== 'undefined' && window.innerWidth < 768;
+  
+  // Use immediate check if hook hasn't loaded yet
+  const shouldHideCursor = isMobile || isMobileImmediate;
+  
+  // Debug logging
+  console.log('CustomCursor - isMobile:', isMobile, 'isMobileImmediate:', isMobileImmediate, 'shouldHideCursor:', shouldHideCursor);
 
   useEffect(() => {
+    if (shouldHideCursor) {
+      // On mobile, don't set initial position - let it follow touch naturally
+      return;
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -44,10 +61,83 @@ const CustomCursor = () => {
       window.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("mouseover", handleMouseOver);
     };
-  }, []);
+  }, [isMobile]);
 
-  // Hide default cursor
+  // Handle touch events for mobile
   useEffect(() => {
+    if (!shouldHideCursor) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      setMousePosition({ x: touch.clientX, y: touch.clientY });
+      setIsTouching(true);
+      setIsClicking(true);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      setMousePosition({ x: touch.clientX, y: touch.clientY });
+    };
+
+    const handleTouchEnd = () => {
+      setIsTouching(false);
+      setIsClicking(false);
+    };
+
+    const handleTouchCancel = () => {
+      setIsTouching(false);
+      setIsClicking(false);
+    };
+
+    // Add touch event listeners to the document
+    document.addEventListener("touchstart", handleTouchStart);
+    document.addEventListener("touchmove", handleTouchMove);
+    document.addEventListener("touchend", handleTouchEnd);
+    document.addEventListener("touchcancel", handleTouchCancel);
+
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
+      document.removeEventListener("touchcancel", handleTouchCancel);
+    };
+  }, [shouldHideCursor]);
+
+  // Handle interactive element detection for mobile
+  useEffect(() => {
+    if (!shouldHideCursor) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.closest("a") ||
+        target.closest("button") ||
+        target.classList.contains("cursor-hover") ||
+        target.closest("[role='button']") ||
+        target.closest("[tabindex]")
+      ) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
+    };
+
+    document.addEventListener("touchstart", handleTouchStart);
+
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+    };
+  }, [shouldHideCursor]);
+
+  // Hide default cursor only on desktop
+  useEffect(() => {
+    if (shouldHideCursor) {
+      // On mobile, keep default cursor behavior
+      return;
+    }
+
     document.body.style.cursor = "none";
     
     // Add cursor-none class to all interactive elements
@@ -62,7 +152,12 @@ const CustomCursor = () => {
         el.classList.remove("cursor-none");
       });
     };
-  }, []);
+  }, [shouldHideCursor]);
+
+  // Don't render cursor on mobile
+  if (shouldHideCursor) {
+    return null;
+  }
 
   return (
     <>
@@ -71,8 +166,8 @@ const CustomCursor = () => {
         ref={cursorRef}
         className="fixed top-0 left-0 w-3 h-3 rounded-full bg-gradient-1 z-[9999] pointer-events-none mix-blend-difference"
         animate={{
-          x: mousePosition.x - 6,
-          y: mousePosition.y - 6,
+          x: mousePosition.x - 1.5,
+          y: mousePosition.y - 1.5,
           scale: isClicking ? 0.5 : isHovering ? 0.5 : 1,
         }}
         transition={{

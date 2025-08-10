@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -14,6 +15,14 @@ const Navbar = () => {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
+      }
+      
+      // Check if we're in the home section (first 100vh)
+      const homeSection = document.getElementById('home');
+      if (homeSection) {
+        const homeRect = homeSection.getBoundingClientRect();
+        const isInHomeSection = homeRect.bottom > 0 && homeRect.top < window.innerHeight;
+        setIsVisible(isInHomeSection);
       }
     };
 
@@ -66,6 +75,7 @@ const Navbar = () => {
   const navbarVariants = {
     initial: { opacity: 0, y: -20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    hidden: { opacity: 0, y: -20, transition: { duration: 0.3 } },
   };
 
   const menuVariants = {
@@ -98,8 +108,9 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
       initial="initial"
-      animate="animate"
+      animate={isVisible ? "animate" : "hidden"}
       variants={navbarVariants}
+      style={{ display: isVisible ? 'block' : 'none' }}
     >
       <div className="container mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between">
@@ -117,9 +128,9 @@ const Navbar = () => {
               <motion.a
                 key={link.name}
                 href={link.href}
-                className="text-white/90 hover:text-white transition-colors relative group"
+                className="text-white/90 hover:text-white transition-all duration-300 relative group cursor-pointer"
                 onClick={(e) => handleNavClick(e, link.href)}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
                 {link.name}
@@ -129,12 +140,10 @@ const Navbar = () => {
                 />
               </motion.a>
             ))}
-            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-4 md:hidden">
-            <ThemeToggle />
             <motion.button
               className="text-white hover:text-white/80 focus:outline-none focus:ring-2 focus:ring-white/20 rounded-lg p-2 transition-colors bg-white/10 backdrop-blur-sm"
               onClick={toggleMenu}
@@ -178,11 +187,11 @@ const Navbar = () => {
                   <motion.a
                     key={link.name}
                     href={link.href}
-                    className="text-white text-2xl font-semibold hover:text-white/80 transition-colors flex items-center gap-2"
+                    className="text-white text-2xl font-semibold hover:text-white/80 transition-all duration-300 flex items-center gap-2 cursor-pointer"
+                    whileHover={{ scale: 1.05, x: 8 }}
                     onClick={(e) => handleNavClick(e, link.href)}
                     custom={index}
                     variants={linkVariants}
-                    whileHover={{ x: 10 }}
                   >
                     {link.name}
                   </motion.a>

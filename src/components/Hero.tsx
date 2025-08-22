@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Mail, Download } from "lucide-react";
 import { useProfile } from "@/hooks/use-profile";
+import { useImageAccessibility } from "@/hooks/use-image-accessibility";
 import profilePhoto from "@/assets/computer.jpg";
 import { motion } from "framer-motion";
 import SocialLinks from "./SocialLinks";
@@ -9,7 +10,8 @@ import Parallax from "./Parallax";
 const Hero = () => {
   const { data: profile } = useProfile();
 
-  const profileImage = profile?.user?.profile_photo ? `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}${profile.user.profile_photo}` : profilePhoto;
+  const remoteProfileImage = profile?.user?.profile_photo ? `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}${profile.user.profile_photo}` : null;
+  const { finalImage: profileImage, isLoading: imageLoading } = useImageAccessibility(remoteProfileImage, profilePhoto);
   const fullName = profile?.user ? `${profile.user.first_name} ${profile.user.last_name}`.trim() || profile.user.username : "Vishal Chouhan";
   const bio = profile?.user?.bio || "Experienced Python Developer specializing in cloud technologies with a 3+ year track record of delivering scalable solutions. Passionate about backend development, DevOps, and building robust APIs. Always eager to learn and adapt to new challenges in the tech landscape.";
   const email = profile?.user?.email || "chouhanvishal273@gmail.com";
@@ -106,11 +108,17 @@ const Hero = () => {
                   whileHover={{ rotateY: 10, rotateX: -10 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                  <img
-                    src={profileImage}
-                    alt="Profile"
-                    className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full object-cover border-4 border-white/20 shadow-neon group-hover:border-white/40 transition-all duration-500 max-w-full animate-morph"
-                  />
+                  {imageLoading ? (
+                    <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 animate-pulse flex items-center justify-center">
+                      <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    </div>
+                  ) : (
+                    <img
+                      src={profileImage}
+                      alt="Profile"
+                      className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full object-cover border-4 border-white/20 shadow-neon group-hover:border-white/40 transition-all duration-500 max-w-full animate-morph"
+                    />
+                  )}
                   <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 </motion.div>
               </div>
